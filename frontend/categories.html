@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Categories - Momo Shop</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .categories-page {
+            padding: 40px 0;
+        }
+
+        .categories-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .categories-title {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .categories-subtitle {
+            color: var(--text-color);
+            font-size: 1.2rem;
+        }
+
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .category-card {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+
+        .category-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .category-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .category-content {
+            padding: 20px;
+        }
+
+        .category-title {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+
+        .category-description {
+            color: var(--text-color);
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .category-stats {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            color: var(--text-color);
+        }
+
+        .stat-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .category-button {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            background-color: var(--accent-color);
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+
+        .category-button:hover {
+            background-color: #e67e22;
+        }
+
+        .featured-products {
+            margin-top: 40px;
+        }
+
+        .featured-title {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+        }
+
+        .product-info {
+            padding: 15px;
+        }
+
+        .product-title {
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+        }
+
+        .product-price {
+            color: var(--accent-color);
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="top-bar">
+            <div class="container">
+                <div class="contact-info">
+                    <span><i class="fas fa-phone"></i> +1 234 567 890</span>
+                    <span><i class="fas fa-envelope"></i> support@momoshop.com</span>
+                </div>
+                <div class="auth-links">
+                    <a href="login.html">Login</a>
+                    <a href="register.html">Register</a>
+                </div>
+            </div>
+        </div>
+        <nav class="main-nav">
+            <div class="container">
+                <div class="logo">
+                    <a href="index.html">Momo Shop</a>
+                </div>
+                <div class="search-bar">
+                    <input type="text" placeholder="Search products...">
+                    <button><i class="fas fa-search"></i></button>
+                </div>
+                <ul class="nav-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="products.html">Products</a></li>
+                    <li><a href="categories.html">Categories</a></li>
+                    <li><a href="deals.html">Deals</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+                <div class="cart-icon">
+                    <a href="cart.html">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span id="cart-count">0</span>
+                    </a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="categories-page">
+        <div class="container">
+            <div class="categories-header">
+                <h1 class="categories-title">Shop by Category</h1>
+                <p class="categories-subtitle">Browse our wide range of products</p>
+            </div>
+
+            <div class="categories-grid" id="categories-grid">
+                <!-- Categories will be loaded here dynamically -->
+            </div>
+
+            <div class="featured-products">
+                <h2 class="featured-title">Featured Products</h2>
+                <div class="products-grid" id="featured-products">
+                    <!-- Featured products will be loaded here dynamically -->
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-column">
+                    <h3>About Us</h3>
+                    <p>Momo Shop is your one-stop destination for premium products at competitive prices.</p>
+                </div>
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="faq.html">FAQ</a></li>
+                        <li><a href="terms.html">Terms & Conditions</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Customer Service</h3>
+                    <ul>
+                        <li><a href="shipping.html">Shipping Policy</a></li>
+                        <li><a href="returns.html">Returns & Refunds</a></li>
+                        <li><a href="privacy.html">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Connect With Us</h3>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Momo Shop. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/script.js"></script>
+    <script>
+        // Categories page specific JavaScript
+        const categoriesGrid = document.getElementById('categories-grid');
+        const featuredProductsGrid = document.getElementById('featured-products');
+
+        // Sample categories data (replace with your actual data)
+        const categories = [
+            {
+                id: 1,
+                name: 'Electronics',
+                description: 'Latest gadgets and electronic devices',
+                image: 'images/electronics.jpg',
+                productCount: 150,
+                featured: true
+            },
+            {
+                id: 2,
+                name: 'Fashion',
+                description: 'Trendy clothing and accessories',
+                image: 'images/fashion.jpg',
+                productCount: 200,
+                featured: true
+            },
+            {
+                id: 3,
+                name: 'Home & Living',
+                description: 'Furniture and home decor',
+                image: 'images/home.jpg',
+                productCount: 100,
+                featured: true
+            },
+            {
+                id: 4,
+                name: 'Beauty',
+                description: 'Cosmetics and personal care',
+                image: 'images/beauty.jpg',
+                productCount: 80,
+                featured: true
+            },
+            {
+                id: 5,
+                name: 'Sports',
+                description: 'Sports equipment and accessories',
+                image: 'images/sports.jpg',
+                productCount: 120,
+                featured: true
+            },
+            {
+                id: 6,
+                name: 'Books',
+                description: 'Books and educational materials',
+                image: 'images/books.jpg',
+                productCount: 90,
+                featured: true
+            }
+        ];
+
+        function displayCategories() {
+            categoriesGrid.innerHTML = categories.map(category => `
+                <div class="category-card">
+                    <img src="${category.image}" alt="${category.name}" class="category-image">
+                    <div class="category-content">
+                        <h2 class="category-title">${category.name}</h2>
+                        <p class="category-description">${category.description}</p>
+                        <div class="category-stats">
+                            <span class="stat-item">
+                                <i class="fas fa-box"></i>
+                                ${category.productCount} products
+                            </span>
+                            <span class="stat-item">
+                                <i class="fas fa-star"></i>
+                                Featured
+                            </span>
+                        </div>
+                        <a href="products.html?category=${category.id}" class="category-button">Shop Now</a>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function displayFeaturedProducts() {
+            // Get 6 random products as featured products
+            const featuredProducts = products.sort(() => 0.5 - Math.random()).slice(0, 6);
+            
+            featuredProductsGrid.innerHTML = featuredProducts.map(product => `
+                <div class="product-card">
+                    <img src="${product.image}" alt="${product.name}" class="product-image">
+                    <div class="product-info">
+                        <h3 class="product-title">${product.name}</h3>
+                        <p class="product-price">$${product.price.toFixed(2)}</p>
+                        <button class="add-to-cart" onclick="addToCart(${product.id})">Add to Cart</button>
+                        <a href="product-details.html?id=${product.id}" class="view-details">View Details</a>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Initialize the page
+        displayCategories();
+        displayFeaturedProducts();
+    </script>
+</body>
+</html> 

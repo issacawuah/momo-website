@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Details - Momo Shop</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .product-details-page {
+            padding: 40px 0;
+        }
+
+        .product-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+
+        .product-gallery {
+            display: grid;
+            grid-template-columns: 100px 1fr;
+            gap: 20px;
+        }
+
+        .thumbnail-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .thumbnail {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 4px;
+            cursor: pointer;
+            border: 2px solid transparent;
+        }
+
+        .thumbnail.active {
+            border-color: var(--accent-color);
+        }
+
+        .main-image {
+            width: 100%;
+            height: 500px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        .product-info {
+            padding: 20px;
+        }
+
+        .product-title {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+
+        .product-price {
+            font-size: 1.5rem;
+            color: var(--accent-color);
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .product-rating {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .product-rating i {
+            color: #ffc107;
+        }
+
+        .product-description {
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .product-meta {
+            margin-bottom: 20px;
+        }
+
+        .meta-item {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .meta-label {
+            font-weight: bold;
+            min-width: 100px;
+        }
+
+        .quantity-control {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .quantity-btn {
+            width: 30px;
+            height: 30px;
+            border: 1px solid var(--border-color);
+            background: white;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .quantity-input {
+            width: 50px;
+            text-align: center;
+            padding: 5px;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .add-to-cart-btn {
+            padding: 12px 30px;
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1.1rem;
+        }
+
+        .buy-now-btn {
+            padding: 12px 30px;
+            background-color: var(--secondary-color);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1.1rem;
+        }
+
+        .product-tabs {
+            margin-top: 40px;
+        }
+
+        .tab-buttons {
+            display: flex;
+            border-bottom: 1px solid var(--border-color);
+            margin-bottom: 20px;
+        }
+
+        .tab-button {
+            padding: 10px 20px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1.1rem;
+            color: var(--text-color);
+        }
+
+        .tab-button.active {
+            color: var(--accent-color);
+            border-bottom: 2px solid var(--accent-color);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .review-list {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .review-item {
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .review-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        .review-author {
+            font-weight: bold;
+        }
+
+        .review-date {
+            color: var(--text-color);
+            font-size: 0.9rem;
+        }
+
+        .review-rating {
+            color: #ffc107;
+            margin-bottom: 10px;
+        }
+
+        .review-text {
+            line-height: 1.6;
+        }
+
+        .specifications-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .specifications-table th,
+        .specifications-table td {
+            padding: 10px;
+            border: 1px solid var(--border-color);
+            text-align: left;
+        }
+
+        .specifications-table th {
+            background-color: var(--light-bg);
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="top-bar">
+            <div class="container">
+                <div class="contact-info">
+                    <span><i class="fas fa-phone"></i> +1 234 567 890</span>
+                    <span><i class="fas fa-envelope"></i> support@momoshop.com</span>
+                </div>
+                <div class="auth-links">
+                    <a href="login.html">Login</a>
+                    <a href="register.html">Register</a>
+                </div>
+            </div>
+        </div>
+        <nav class="main-nav">
+            <div class="container">
+                <div class="logo">
+                    <a href="index.html">Momo Shop</a>
+                </div>
+                <div class="search-bar">
+                    <input type="text" placeholder="Search products...">
+                    <button><i class="fas fa-search"></i></button>
+                </div>
+                <ul class="nav-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="products.html">Products</a></li>
+                    <li><a href="categories.html">Categories</a></li>
+                    <li><a href="deals.html">Deals</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+                <div class="cart-icon">
+                    <a href="cart.html">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span id="cart-count">0</span>
+                    </a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="product-details-page">
+        <div class="container">
+            <div class="product-container">
+                <div class="product-gallery">
+                    <div class="thumbnail-list">
+                        <!-- Thumbnails will be loaded here dynamically -->
+                    </div>
+                    <div class="main-image-container">
+                        <img src="" alt="" class="main-image" id="main-image">
+                    </div>
+                </div>
+                <div class="product-info">
+                    <h1 class="product-title" id="product-title"></h1>
+                    <p class="product-price" id="product-price"></p>
+                    <div class="product-rating" id="product-rating">
+                        <!-- Rating will be loaded here dynamically -->
+                    </div>
+                    <p class="product-description" id="product-description"></p>
+                    <div class="product-meta">
+                        <div class="meta-item">
+                            <span class="meta-label">Availability:</span>
+                            <span id="product-availability"></span>
+                        </div>
+                        <div class="meta-item">
+                            <span class="meta-label">Category:</span>
+                            <span id="product-category"></span>
+                        </div>
+                        <div class="meta-item">
+                            <span class="meta-label">Brand:</span>
+                            <span id="product-brand"></span>
+                        </div>
+                    </div>
+                    <div class="quantity-control">
+                        <button class="quantity-btn" onclick="updateQuantity(-1)">-</button>
+                        <input type="number" class="quantity-input" value="1" min="1" id="quantity">
+                        <button class="quantity-btn" onclick="updateQuantity(1)">+</button>
+                    </div>
+                    <div class="action-buttons">
+                        <button class="add-to-cart-btn" onclick="addToCart()">Add to Cart</button>
+                        <button class="buy-now-btn" onclick="buyNow()">Buy Now</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="product-tabs">
+                <div class="tab-buttons">
+                    <button class="tab-button active" onclick="switchTab('description')">Description</button>
+                    <button class="tab-button" onclick="switchTab('specifications')">Specifications</button>
+                    <button class="tab-button" onclick="switchTab('reviews')">Reviews</button>
+                </div>
+                <div class="tab-content active" id="description-tab">
+                    <div id="detailed-description"></div>
+                </div>
+                <div class="tab-content" id="specifications-tab">
+                    <table class="specifications-table">
+                        <!-- Specifications will be loaded here dynamically -->
+                    </table>
+                </div>
+                <div class="tab-content" id="reviews-tab">
+                    <div class="review-list">
+                        <!-- Reviews will be loaded here dynamically -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-column">
+                    <h3>About Us</h3>
+                    <p>Momo Shop is your one-stop destination for premium products at competitive prices.</p>
+                </div>
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="faq.html">FAQ</a></li>
+                        <li><a href="terms.html">Terms & Conditions</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Customer Service</h3>
+                    <ul>
+                        <li><a href="shipping.html">Shipping Policy</a></li>
+                        <li><a href="returns.html">Returns & Refunds</a></li>
+                        <li><a href="privacy.html">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Connect With Us</h3>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Momo Shop. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/script.js"></script>
+    <script>
+        // Product details page specific JavaScript
+        const urlParams = new URLSearchParams(window.location.search);
+        const productId = parseInt(urlParams.get('id'));
+        let currentProduct = null;
+
+        function loadProductDetails() {
+            currentProduct = products.find(p => p.id === productId);
+            if (!currentProduct) {
+                window.location.href = 'products.html';
+                return;
+            }
+
+            // Update product information
+            document.getElementById('product-title').textContent = currentProduct.name;
+            document.getElementById('product-price').textContent = `$${currentProduct.price.toFixed(2)}`;
+            document.getElementById('product-description').textContent = currentProduct.description;
+            document.getElementById('product-availability').textContent = currentProduct.stock > 0 ? 'In Stock' : 'Out of Stock';
+            document.getElementById('product-category').textContent = currentProduct.category;
+            document.getElementById('product-brand').textContent = currentProduct.brand;
+            document.getElementById('detailed-description').innerHTML = currentProduct.detailedDescription;
+
+            // Update main image
+            document.getElementById('main-image').src = currentProduct.image;
+            document.getElementById('main-image').alt = currentProduct.name;
+
+            // Load thumbnails
+            const thumbnailList = document.querySelector('.thumbnail-list');
+            thumbnailList.innerHTML = currentProduct.images.map((image, index) => `
+                <img src="${image}" alt="Thumbnail ${index + 1}" class="thumbnail ${index === 0 ? 'active' : ''}" 
+                     onclick="changeMainImage('${image}')">
+            `).join('');
+
+            // Load specifications
+            const specificationsTable = document.querySelector('.specifications-table');
+            specificationsTable.innerHTML = Object.entries(currentProduct.specifications).map(([key, value]) => `
+                <tr>
+                    <th>${key}</th>
+                    <td>${value}</td>
+                </tr>
+            `).join('');
+
+            // Load reviews
+            const reviewList = document.querySelector('.review-list');
+            reviewList.innerHTML = currentProduct.reviews.map(review => `
+                <div class="review-item">
+                    <div class="review-header">
+                        <span class="review-author">${review.author}</span>
+                        <span class="review-date">${review.date}</span>
+                    </div>
+                    <div class="review-rating">
+                        ${Array(5).fill('').map((_, i) => `
+                            <i class="fas fa-star ${i < review.rating ? 'filled' : ''}"></i>
+                        `).join('')}
+                    </div>
+                    <p class="review-text">${review.text}</p>
+                </div>
+            `).join('');
+
+            // Update rating display
+            const averageRating = currentProduct.reviews.reduce((sum, review) => sum + review.rating, 0) / currentProduct.reviews.length;
+            document.getElementById('product-rating').innerHTML = `
+                ${Array(5).fill('').map((_, i) => `
+                    <i class="fas fa-star ${i < averageRating ? 'filled' : ''}"></i>
+                `).join('')}
+                <span>(${currentProduct.reviews.length} reviews)</span>
+            `;
+        }
+
+        function changeMainImage(imageUrl) {
+            document.getElementById('main-image').src = imageUrl;
+            document.querySelectorAll('.thumbnail').forEach(thumb => {
+                thumb.classList.remove('active');
+                if (thumb.src === imageUrl) {
+                    thumb.classList.add('active');
+                }
+            });
+        }
+
+        function updateQuantity(change) {
+            const quantityInput = document.getElementById('quantity');
+            const newQuantity = parseInt(quantityInput.value) + change;
+            if (newQuantity >= 1) {
+                quantityInput.value = newQuantity;
+            }
+        }
+
+        function addToCart() {
+            const quantity = parseInt(document.getElementById('quantity').value);
+            addToCart(currentProduct.id, quantity);
+            alert('Product added to cart!');
+        }
+
+        function buyNow() {
+            const quantity = parseInt(document.getElementById('quantity').value);
+            addToCart(currentProduct.id, quantity);
+            window.location.href = 'cart.html';
+        }
+
+        function switchTab(tabName) {
+            // Hide all tabs
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            document.querySelectorAll('.tab-button').forEach(button => {
+                button.classList.remove('active');
+            });
+
+            // Show selected tab
+            document.getElementById(`${tabName}-tab`).classList.add('active');
+            document.querySelector(`.tab-button[onclick="switchTab('${tabName}')"]`).classList.add('active');
+        }
+
+        // Initialize the page
+        loadProductDetails();
+    </script>
+</body>
+</html> 

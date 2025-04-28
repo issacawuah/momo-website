@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deals - Momo Shop</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .deals-page {
+            padding: 40px 0;
+        }
+
+        .deals-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .deals-title {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .deals-subtitle {
+            color: var(--text-color);
+            font-size: 1.2rem;
+        }
+
+        .deals-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .deal-card {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            position: relative;
+        }
+
+        .deal-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: #e74c3c;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .deal-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .deal-content {
+            padding: 20px;
+        }
+
+        .deal-title {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+
+        .deal-description {
+            color: var(--text-color);
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .deal-meta {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .deal-price {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .original-price {
+            text-decoration: line-through;
+            color: var(--text-color);
+        }
+
+        .discounted-price {
+            color: #e74c3c;
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+
+        .deal-timer {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+        }
+
+        .timer-label {
+            color: var(--text-color);
+            font-size: 0.9rem;
+        }
+
+        .timer-value {
+            font-weight: bold;
+            color: var(--accent-color);
+        }
+
+        .deal-button {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            background-color: var(--accent-color);
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+
+        .deal-button:hover {
+            background-color: #e67e22;
+        }
+
+        .featured-deal {
+            grid-column: 1 / -1;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('images/featured-deal.jpg');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 40px;
+            border-radius: 8px;
+        }
+
+        .featured-content {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .featured-title {
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+
+        .featured-description {
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+
+        .featured-price {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+        }
+
+        .featured-timer {
+            margin-bottom: 30px;
+        }
+
+        .featured-button {
+            display: inline-block;
+            padding: 15px 30px;
+            background-color: var(--accent-color);
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            font-size: 1.1rem;
+            transition: background-color 0.3s;
+        }
+
+        .featured-button:hover {
+            background-color: #e67e22;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="top-bar">
+            <div class="container">
+                <div class="contact-info">
+                    <span><i class="fas fa-phone"></i> +1 234 567 890</span>
+                    <span><i class="fas fa-envelope"></i> support@momoshop.com</span>
+                </div>
+                <div class="auth-links">
+                    <a href="login.html">Login</a>
+                    <a href="register.html">Register</a>
+                </div>
+            </div>
+        </div>
+        <nav class="main-nav">
+            <div class="container">
+                <div class="logo">
+                    <a href="index.html">Momo Shop</a>
+                </div>
+                <div class="search-bar">
+                    <input type="text" placeholder="Search products...">
+                    <button><i class="fas fa-search"></i></button>
+                </div>
+                <ul class="nav-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="products.html">Products</a></li>
+                    <li><a href="categories.html">Categories</a></li>
+                    <li><a href="deals.html">Deals</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+                <div class="cart-icon">
+                    <a href="cart.html">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span id="cart-count">0</span>
+                    </a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="deals-page">
+        <div class="container">
+            <div class="deals-header">
+                <h1 class="deals-title">Special Deals & Offers</h1>
+                <p class="deals-subtitle">Don't miss out on these amazing discounts</p>
+            </div>
+
+            <div class="deals-grid">
+                <div class="featured-deal">
+                    <div class="featured-content">
+                        <h2 class="featured-title">Weekend Special</h2>
+                        <p class="featured-description">Get up to 50% off on selected items this weekend only. Limited time offer!</p>
+                        <div class="featured-price">
+                            <span class="original-price">$199.99</span>
+                            <span class="discounted-price">$99.99</span>
+                        </div>
+                        <div class="featured-timer">
+                            <span class="timer-label">Time Left:</span>
+                            <span class="timer-value" id="featured-timer">48:00:00</span>
+                        </div>
+                        <a href="products.html?deal=weekend" class="featured-button">Shop Now</a>
+                    </div>
+                </div>
+
+                <div class="deal-card">
+                    <span class="deal-badge">-30%</span>
+                    <img src="images/deal1.jpg" alt="Deal 1" class="deal-image">
+                    <div class="deal-content">
+                        <h2 class="deal-title">Summer Collection</h2>
+                        <p class="deal-description">Get 30% off on all summer clothing and accessories.</p>
+                        <div class="deal-meta">
+                            <div class="deal-price">
+                                <span class="original-price">$79.99</span>
+                                <span class="discounted-price">$55.99</span>
+                            </div>
+                            <div class="deal-timer">
+                                <span class="timer-label">Ends in:</span>
+                                <span class="timer-value" id="deal1-timer">24:00:00</span>
+                            </div>
+                        </div>
+                        <a href="products.html?deal=summer" class="deal-button">Shop Now</a>
+                    </div>
+                </div>
+
+                <div class="deal-card">
+                    <span class="deal-badge">-20%</span>
+                    <img src="images/deal2.jpg" alt="Deal 2" class="deal-image">
+                    <div class="deal-content">
+                        <h2 class="deal-title">Tech Week</h2>
+                        <p class="deal-description">20% off on all electronics and gadgets.</p>
+                        <div class="deal-meta">
+                            <div class="deal-price">
+                                <span class="original-price">$499.99</span>
+                                <span class="discounted-price">$399.99</span>
+                            </div>
+                            <div class="deal-timer">
+                                <span class="timer-label">Ends in:</span>
+                                <span class="timer-value" id="deal2-timer">72:00:00</span>
+                            </div>
+                        </div>
+                        <a href="products.html?deal=tech" class="deal-button">Shop Now</a>
+                    </div>
+                </div>
+
+                <div class="deal-card">
+                    <span class="deal-badge">-40%</span>
+                    <img src="images/deal3.jpg" alt="Deal 3" class="deal-image">
+                    <div class="deal-content">
+                        <h2 class="deal-title">Home Essentials</h2>
+                        <p class="deal-description">40% off on home and living products.</p>
+                        <div class="deal-meta">
+                            <div class="deal-price">
+                                <span class="original-price">$149.99</span>
+                                <span class="discounted-price">$89.99</span>
+                            </div>
+                            <div class="deal-timer">
+                                <span class="timer-label">Ends in:</span>
+                                <span class="timer-value" id="deal3-timer">48:00:00</span>
+                            </div>
+                        </div>
+                        <a href="products.html?deal=home" class="deal-button">Shop Now</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-column">
+                    <h3>About Us</h3>
+                    <p>Momo Shop is your one-stop destination for premium products at competitive prices.</p>
+                </div>
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="faq.html">FAQ</a></li>
+                        <li><a href="terms.html">Terms & Conditions</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Customer Service</h3>
+                    <ul>
+                        <li><a href="shipping.html">Shipping Policy</a></li>
+                        <li><a href="returns.html">Returns & Refunds</a></li>
+                        <li><a href="privacy.html">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Connect With Us</h3>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Momo Shop. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/script.js"></script>
+    <script>
+        // Deals page specific JavaScript
+        function updateTimer(endTime, elementId) {
+            const timer = document.getElementById(elementId);
+            const now = new Date().getTime();
+            const distance = endTime - now;
+
+            if (distance < 0) {
+                timer.textContent = "Expired";
+                return;
+            }
+
+            const hours = Math.floor(distance / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            timer.textContent = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        }
+
+        // Set end times for deals (24 hours from now)
+        const endTimes = {
+            'featured-timer': new Date().getTime() + 48 * 60 * 60 * 1000,
+            'deal1-timer': new Date().getTime() + 24 * 60 * 60 * 1000,
+            'deal2-timer': new Date().getTime() + 72 * 60 * 60 * 1000,
+            'deal3-timer': new Date().getTime() + 48 * 60 * 60 * 1000
+        };
+
+        // Update timers every second
+        setInterval(() => {
+            Object.entries(endTimes).forEach(([id, endTime]) => {
+                updateTimer(endTime, id);
+            });
+        }, 1000);
+
+        // Initialize timers
+        Object.entries(endTimes).forEach(([id, endTime]) => {
+            updateTimer(endTime, id);
+        });
+    </script>
+</body>
+</html> 

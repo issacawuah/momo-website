@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Products - Momo Shop</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .products-page {
+            padding: 40px 0;
+        }
+
+        .filters-sidebar {
+            grid-column: 1;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .filter-section {
+            margin-bottom: 20px;
+        }
+
+        .filter-section h3 {
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+
+        .filter-options {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .filter-option {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .products-grid {
+            grid-column: 2;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .product-info {
+            padding: 15px;
+        }
+
+        .product-title {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+        }
+
+        .product-price {
+            color: var(--accent-color);
+            font-weight: bold;
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+        }
+
+        .product-rating {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            margin-bottom: 10px;
+        }
+
+        .product-rating i {
+            color: #ffc107;
+        }
+
+        .product-category {
+            font-size: 0.9rem;
+            color: var(--text-color);
+            margin-bottom: 10px;
+        }
+
+        .sort-options {
+            display: flex;
+            justify-content: flex-end;
+            margin-bottom: 20px;
+        }
+
+        .sort-options select {
+            padding: 8px;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="top-bar">
+            <div class="container">
+                <div class="contact-info">
+                    <span><i class="fas fa-phone"></i> +1 234 567 890</span>
+                    <span><i class="fas fa-envelope"></i> support@momoshop.com</span>
+                </div>
+                <div class="auth-links">
+                    <a href="login.html">Login</a>
+                    <a href="register.html">Register</a>
+                </div>
+            </div>
+        </div>
+        <nav class="main-nav">
+            <div class="container">
+                <div class="logo">
+                    <a href="index.html">Momo Shop</a>
+                </div>
+                <div class="search-bar">
+                    <input type="text" placeholder="Search products...">
+                    <button><i class="fas fa-search"></i></button>
+                </div>
+                <ul class="nav-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="products.html">Products</a></li>
+                    <li><a href="categories.html">Categories</a></li>
+                    <li><a href="deals.html">Deals</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+                <div class="cart-icon">
+                    <a href="cart.html">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span id="cart-count">0</span>
+                    </a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="products-page">
+        <div class="container">
+            <div class="sort-options">
+                <select id="sort-by">
+                    <option value="price-asc">Price: Low to High</option>
+                    <option value="price-desc">Price: High to Low</option>
+                    <option value="rating-desc">Rating: High to Low</option>
+                    <option value="newest">Newest First</option>
+                </select>
+            </div>
+            <div class="products-container">
+                <aside class="filters-sidebar">
+                    <div class="filter-section">
+                        <h3>Categories</h3>
+                        <div class="filter-options">
+                            <label class="filter-option">
+                                <input type="checkbox" value="electronics"> Electronics
+                            </label>
+                            <label class="filter-option">
+                                <input type="checkbox" value="fashion"> Fashion
+                            </label>
+                            <label class="filter-option">
+                                <input type="checkbox" value="home"> Home & Living
+                            </label>
+                        </div>
+                    </div>
+                    <div class="filter-section">
+                        <h3>Price Range</h3>
+                        <div class="filter-options">
+                            <label class="filter-option">
+                                <input type="checkbox" value="0-50"> $0 - $50
+                            </label>
+                            <label class="filter-option">
+                                <input type="checkbox" value="50-100"> $50 - $100
+                            </label>
+                            <label class="filter-option">
+                                <input type="checkbox" value="100-500"> $100 - $500
+                            </label>
+                            <label class="filter-option">
+                                <input type="checkbox" value="500+"> $500+
+                            </label>
+                        </div>
+                    </div>
+                    <div class="filter-section">
+                        <h3>Rating</h3>
+                        <div class="filter-options">
+                            <label class="filter-option">
+                                <input type="checkbox" value="5"> 5 Stars
+                            </label>
+                            <label class="filter-option">
+                                <input type="checkbox" value="4"> 4 Stars & Up
+                            </label>
+                            <label class="filter-option">
+                                <input type="checkbox" value="3"> 3 Stars & Up
+                            </label>
+                        </div>
+                    </div>
+                </aside>
+                <div class="products-grid" id="products-container">
+                    <!-- Products will be loaded here dynamically -->
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-column">
+                    <h3>About Us</h3>
+                    <p>Momo Shop is your one-stop destination for premium products at competitive prices.</p>
+                </div>
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="faq.html">FAQ</a></li>
+                        <li><a href="terms.html">Terms & Conditions</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Customer Service</h3>
+                    <ul>
+                        <li><a href="shipping.html">Shipping Policy</a></li>
+                        <li><a href="returns.html">Returns & Refunds</a></li>
+                        <li><a href="privacy.html">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Connect With Us</h3>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Momo Shop. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/script.js"></script>
+    <script>
+        // Products page specific JavaScript
+        const productsContainer = document.getElementById('products-container');
+        const sortSelect = document.getElementById('sort-by');
+        const filterCheckboxes = document.querySelectorAll('.filter-options input[type="checkbox"]');
+
+        function displayProducts(products) {
+            productsContainer.innerHTML = products.map(product => `
+                <div class="product-card">
+                    <img src="${product.image}" alt="${product.name}" class="product-image">
+                    <div class="product-info">
+                        <h3 class="product-title">${product.name}</h3>
+                        <p class="product-price">$${product.price.toFixed(2)}</p>
+                        <div class="product-rating">
+                            ${getStarRating(product.reviews)}
+                            <span>(${product.reviews.length})</span>
+                        </div>
+                        <p class="product-category">${product.category}</p>
+                        <button class="add-to-cart" onclick="addToCart(${product.id})">Add to Cart</button>
+                        <a href="product-details.html?id=${product.id}" class="view-details">View Details</a>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function getStarRating(reviews) {
+            const averageRating = reviews.reduce((sum, review) => sum + review.rating, 0) / reviews.length;
+            return Array(5).fill('').map((_, i) => `
+                <i class="fas fa-star ${i < averageRating ? 'filled' : ''}"></i>
+            `).join('');
+        }
+
+        function sortProducts(products, sortBy) {
+            switch(sortBy) {
+                case 'price-asc':
+                    return [...products].sort((a, b) => a.price - b.price);
+                case 'price-desc':
+                    return [...products].sort((a, b) => b.price - a.price);
+                case 'rating-desc':
+                    return [...products].sort((a, b) => {
+                        const ratingA = a.reviews.reduce((sum, review) => sum + review.rating, 0) / a.reviews.length;
+                        const ratingB = b.reviews.reduce((sum, review) => sum + review.rating, 0) / b.reviews.length;
+                        return ratingB - ratingA;
+                    });
+                case 'newest':
+                    return [...products].sort((a, b) => b.id - a.id);
+                default:
+                    return products;
+            }
+        }
+
+        function filterProducts(products) {
+            const selectedCategories = Array.from(document.querySelectorAll('.filter-options input[value="electronics"], .filter-options input[value="fashion"], .filter-options input[value="home"]'))
+                .filter(checkbox => checkbox.checked)
+                .map(checkbox => checkbox.value);
+
+            const selectedPriceRanges = Array.from(document.querySelectorAll('.filter-options input[value="0-50"], .filter-options input[value="50-100"], .filter-options input[value="100-500"], .filter-options input[value="500+"]'))
+                .filter(checkbox => checkbox.checked)
+                .map(checkbox => checkbox.value);
+
+            const selectedRatings = Array.from(document.querySelectorAll('.filter-options input[value="5"], .filter-options input[value="4"], .filter-options input[value="3"]'))
+                .filter(checkbox => checkbox.checked)
+                .map(checkbox => parseInt(checkbox.value));
+
+            return products.filter(product => {
+                const categoryMatch = selectedCategories.length === 0 || selectedCategories.includes(product.category.toLowerCase());
+                
+                const priceMatch = selectedPriceRanges.length === 0 || selectedPriceRanges.some(range => {
+                    const [min, max] = range.split('-').map(Number);
+                    if (max) return product.price >= min && product.price <= max;
+                    return product.price >= min;
+                });
+
+                const ratingMatch = selectedRatings.length === 0 || selectedRatings.some(rating => {
+                    const avgRating = product.reviews.reduce((sum, review) => sum + review.rating, 0) / product.reviews.length;
+                    return avgRating >= rating;
+                });
+
+                return categoryMatch && priceMatch && ratingMatch;
+            });
+        }
+
+        sortSelect.addEventListener('change', () => {
+            const sortedProducts = sortProducts(filterProducts(products), sortSelect.value);
+            displayProducts(sortedProducts);
+        });
+
+        filterCheckboxes.forEach(checkbox => {
+            checkbox.addEventListener('change', () => {
+                const filteredProducts = filterProducts(products);
+                const sortedProducts = sortProducts(filteredProducts, sortSelect.value);
+                displayProducts(sortedProducts);
+            });
+        });
+
+        // Initialize the page
+        displayProducts(products);
+    </script>
+</body>
+</html> 

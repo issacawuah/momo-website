@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Momo Shop - Online Shopping</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .hero-carousel {
+            position: relative;
+            height: 400px;
+            overflow: hidden;
+            background-color: var(--amazon-dark);
+        }
+
+        .carousel-slide {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+        }
+
+        .carousel-slide.active {
+            opacity: 1;
+        }
+
+        .carousel-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .carousel-nav {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+        }
+
+        .carousel-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: rgba(255,255,255,0.5);
+            cursor: pointer;
+        }
+
+        .carousel-dot.active {
+            background-color: var(--amazon-white);
+        }
+
+        .deals-section {
+            background-color: var(--amazon-white);
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: bold;
+            color: var(--amazon-text);
+        }
+
+        .see-all {
+            color: var(--amazon-orange);
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .deals-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .deal-card {
+            background-color: var(--amazon-white);
+            border: 1px solid var(--amazon-border);
+            border-radius: 4px;
+            padding: 15px;
+            text-align: center;
+        }
+
+        .deal-image {
+            width: 100%;
+            height: 150px;
+            object-fit: contain;
+            margin-bottom: 10px;
+        }
+
+        .deal-title {
+            font-size: 14px;
+            margin-bottom: 5px;
+            color: var(--amazon-text);
+        }
+
+        .deal-price {
+            color: var(--amazon-orange);
+            font-weight: bold;
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+
+        .deal-button {
+            background-color: #FFD814;
+            color: var(--amazon-text);
+            border: none;
+            padding: 8px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            width: 100%;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+
+        .deal-button:hover {
+            background-color: var(--amazon-hover);
+        }
+
+        .categories-section {
+            background-color: var(--amazon-white);
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 15px;
+        }
+
+        .category-card {
+            text-align: center;
+            padding: 15px;
+            border: 1px solid var(--amazon-border);
+            border-radius: 4px;
+            transition: transform 0.3s;
+        }
+
+        .category-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .category-icon {
+            font-size: 24px;
+            color: var(--amazon-orange);
+            margin-bottom: 10px;
+        }
+
+        .category-name {
+            font-size: 14px;
+            color: var(--amazon-text);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="top-bar">
+            <div class="container">
+                <div class="contact-info">
+                    <span><i class="fas fa-phone"></i> +233 554370043</span>
+                    <span><i class="fas fa-envelope"></i> issaawuah9090@gmail.com</span>
+                </div>
+                <div class="auth-links">
+                    <a href="login.html">Login</a>
+                    <a href="register.html">Register</a>
+                </div>
+            </div>
+        </div>
+        <nav class="main-nav">
+            <div class="container">
+                <div class="logo">
+                    <a href="index.html">
+                        <img src="images/logos/logo.svg" alt="Momo Shop Logo" style="height: 40px;">
+                    </a>
+                </div>
+                <div class="search-bar">
+                    <input type="text" placeholder="Search products...">
+                    <button><i class="fas fa-search"></i></button>
+                </div>
+                <ul class="nav-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="products.html">Products</a></li>
+                    <li><a href="categories.html">Categories</a></li>
+                    <li><a href="deals.html">Deals</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+                <div class="cart-icon">
+                    <a href="cart.html">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span id="cart-count">0</span>
+                    </a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <!-- the image under the momo shop or inside  the best sellers -->
+        <div class="hero-carousel">
+            <div class="carousel-slide active">
+                <img src="images/banners/banner1.svg" alt="Special Offers">
+            </div>
+            <div class="carousel-slide">
+                <img src="images/banners/banner2.svg" alt="New Arrivals">
+            </div>
+            <div class="carousel-slide">
+                <img src="images/banners/banner3.svg" alt="Best Deals">
+            </div>
+            <div class="carousel-nav">
+                <div class="carousel-dot active"></div>
+                <div class="carousel-dot"></div>
+                <div class="carousel-dot"></div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="deals-section">
+                <div class="section-header">
+                    <h2 class="section-title">Today's Deals</h2>
+                    <a href="deals.html" class="see-all">See all deals</a>
+                </div>
+                <div class="deals-grid" id="deals-grid">
+                    <!-- Deals will be loaded here dynamically -->
+                </div>
+            </div>
+
+            <div class="categories-section">
+                <div class="section-header">
+                    <h2 class="section-title">Shop by Category</h2>
+                    <a href="categories.html" class="see-all">See all categories</a>
+                </div>
+                <div class="categories-grid">
+                    <div class="category-card">
+                        <div class="category-icon">
+                            <i class="fas fa-laptop"></i>
+                        </div>
+                        <div class="category-name">Electronics</div>
+                    </div>
+                    <div class="category-card">
+                        <div class="category-icon">
+                            <i class="fas fa-tshirt"></i>
+                        </div>
+                        <div class="category-name">Fashion</div>
+                    </div>
+                    <div class="category-card">
+                        <div class="category-icon">
+                            <i class="fas fa-home"></i>
+                        </div>
+                        <div class="category-name">Home & Living</div>
+                    </div>
+                    <div class="category-card">
+                        <div class="category-icon">
+                            <i class="fas fa-heart"></i>
+                        </div>
+                        <div class="category-name">Beauty</div>
+                    </div>
+                    <div class="category-card">
+                        <div class="category-icon">
+                            <i class="fas fa-futbol"></i>
+                        </div>
+                        <div class="category-name">Sports</div>
+                    </div>
+                    <div class="category-card">
+                        <div class="category-icon">
+                            <i class="fas fa-book"></i>
+                        </div>
+                        <div class="category-name">Books</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="deals-section">
+                <div class="section-header">
+                    <h2 class="section-title">Best Sellers</h2>
+                    <a href="products.html" class="see-all">See all products</a>
+                </div>
+                <div class="products-grid" id="best-sellers">
+                    <!-- Best sellers will be loaded here dynamically -->
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-column">
+                    <h3>About Us</h3>
+                    <p>Momo Shop is your one-stop destination for premium products at competitive prices.</p>
+                </div>
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="faq.html">FAQ</a></li>
+                        <li><a href="terms.html">Terms & Conditions</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Customer Service</h3>
+                    <ul>
+                        <li><a href="shipping.html">Shipping Policy</a></li>
+                        <li><a href="returns.html">Returns & Refunds</a></li>
+                        <li><a href="privacy.html">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Connect With Us</h3>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Momo Shop. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/script.js"></script>
+    <script>
+        // Carousel functionality
+        const slides = document.querySelectorAll('.carousel-slide');
+        const dots = document.querySelectorAll('.carousel-dot');
+        let currentSlide = 0;
+
+        function showSlide(index) {
+            slides.forEach(slide => slide.classList.remove('active'));
+            dots.forEach(dot => dot.classList.remove('active'));
+            
+            slides[index].classList.add('active');
+            dots[index].classList.add('active');
+        }
+
+        function nextSlide() {
+            currentSlide = (currentSlide + 1) % slides.length;
+            showSlide(currentSlide);
+        }
+
+        // Change slide every 5 seconds
+        setInterval(nextSlide, 5000);
+
+        // Add click event to dots
+        dots.forEach((dot, index) => {
+            dot.addEventListener('click', () => {
+                currentSlide = index;
+                showSlide(currentSlide);
+            });
+        });
+
+        // Sample deals data
+        const deals = [
+            {
+                id: 1,
+                title: 'Smartphone X Pro',
+                price: 499.99,
+                image: 'images/products/smartphone.svg',
+                discount: '20% off',
+                originalPrice: 599.99
+            },
+            {
+                id: 2,
+                title: 'Wireless Headphones Pro',
+                price: 99.99,
+                image: 'images/products/headphones.svg',
+                discount: '15% off',
+                originalPrice: 119.99
+            },
+            {
+                id: 3,
+                title: 'Smart Watch Series 5',
+                price: 199.99,
+                image: 'images/products/smartwatch.jpg',
+                discount: '25% off',
+                originalPrice: 249.99
+            },
+            {
+                id: 4,
+                title: 'Laptop Pro 2024',
+                price: 999.99,
+                image: 'images/products/laptop.jpg',
+                discount: '30% off',
+                originalPrice: 1299.99
+            },
+            {
+                id: 5,
+                title: '4K Smart TV 55"',
+                price: 399.99,
+                image: 'images/products/tv.jpg',
+                discount: '40% off',
+                originalPrice: 499.99
+            },
+            {
+                id: 6,
+                title: 'Gaming Console Pro',
+                price: 299.99,
+                image: 'images/products/console.jpg',
+                discount: '10% off',
+                originalPrice: 329.99
+            }
+        ];
+
+        // Display deals
+        const dealsGrid = document.getElementById('deals-grid');
+        dealsGrid.innerHTML = deals.map(deal => `
+            <div class="deal-card">
+                <div class="deal-badge">${deal.discount}</div>
+                <img src="${deal.image}" alt="${deal.title}" class="deal-image">
+                <h3 class="deal-title">${deal.title}</h3>
+                <div class="deal-price">
+                    <span class="original-price">$${deal.originalPrice.toFixed(2)}</span>
+                    <span class="current-price">$${deal.price.toFixed(2)}</span>
+                </div>
+                <button class="deal-button">Add to Cart</button>
+            </div>
+        `).join('');
+
+        // Sample best sellers data
+        const bestSellers = [
+            {
+                id: 1,
+                title: 'Premium Wireless Headphones',
+                price: 149.99,
+                rating: 4.5,
+                reviews: 1250,
+                image: 'images/products/headphones2.jpg',
+                category: 'Electronics'
+            },
+            {
+                id: 2,
+                title: 'Smart Speaker with Alexa',
+                price: 79.99,
+                rating: 4.2,
+                reviews: 980,
+                image: 'images/products/speaker.jpg',
+                category: 'Electronics'
+            },
+            {
+                id: 3,
+                title: 'Professional Gaming Mouse',
+                price: 49.99,
+                rating: 4.7,
+                reviews: 2100,
+                image: 'images/products/mouse.jpg',
+                category: 'Gaming'
+            },
+            {
+                id: 4,
+                title: 'Mechanical Wireless Keyboard',
+                price: 69.99,
+                rating: 4.3,
+                reviews: 750,
+                image: 'images/products/keyboard.jpg',
+                category: 'Computers'
+            },
+            {
+                id: 5,
+                title: 'Smart Home Security Camera',
+                price: 89.99,
+                rating: 4.6,
+                reviews: 1500,
+                image: 'images/products/camera.jpg',
+                category: 'Smart Home'
+            },
+            {
+                id: 6,
+                title: 'Portable Bluetooth Speaker',
+                price: 59.99,
+                rating: 4.4,
+                reviews: 890,
+                image: 'images/products/speaker2.jpg',
+                category: 'Electronics'
+            }
+        ];
+
+        // Display best sellers
+        const bestSellersGrid = document.getElementById('best-sellers');
+        bestSellersGrid.innerHTML = bestSellers.map(product => `
+            <div class="product-card">
+                <img src="${product.image}" alt="${product.title}" class="product-image">
+                <div class="product-category">${product.category}</div>
+                <h3 class="product-title">${product.title}</h3>
+                <div class="product-rating">
+                    ${'★'.repeat(Math.floor(product.rating))}${'☆'.repeat(5 - Math.floor(product.rating))}
+                    <span class="review-count">(${product.reviews})</span>
+                </div>
+                <div class="product-price">$${product.price.toFixed(2)}</div>
+                <button class="add-to-cart">Add to Cart</button>
+            </div>
+        `).join('');
+
+        // Carousel images
+        const carouselImages = [
+            {
+                src: 'images/hero/special-offer.jpg ',
+                alt: 'Special Offer',
+                title: 'Summer Sale',
+                subtitle: 'Up to 50% off on selected items'
+            },
+            {
+                src: 'images/hero/new-arrivals.jpg',
+                alt: 'New Arrivals',
+                title: 'New Arrivals',
+                subtitle: 'Discover our latest products'
+            },
+            {
+                src: 'images/hero/best-sellers.jpg',
+                alt: 'Best Sellers',
+                title: 'Best Sellers',
+                subtitle: 'Shop our most popular items'
+            }
+        ];
+
+        // Update carousel slides
+        const carouselSlides = document.querySelectorAll('.carousel-slide');
+        carouselSlides.forEach((slide, index) => {
+            const img = slide.querySelector('img');
+            img.src = carouselImages[index].src;
+            img.alt = carouselImages[index].alt;
+            
+            // Add title and subtitle
+            const content = document.createElement('div');
+            content.className = 'carousel-content';
+            content.innerHTML = `
+                <h2>${carouselImages[index].title}</h2>
+                <p>${carouselImages[index].subtitle}</p>
+                <a href="products.html" class="carousel-button">Shop Now</a>
+            `;
+            slide.appendChild(content);
+        });
+    </script>
+</body>
+</html> 
